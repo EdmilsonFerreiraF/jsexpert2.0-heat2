@@ -1,1 +1,1 @@
-window.onload = new CounterComponent()
+window.onload = () => new CounterComponent()

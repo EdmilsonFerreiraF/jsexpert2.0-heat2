@@ -27,6 +27,13 @@ class CounterComponent {
         return counter
     }
 
+    updateText = ({counterEl, counter}) => () => {
+        const textIdentifier = '$$contador'
+        const defaultText = `Starting with <strong>${textIdentifier}</strong> seconds...`
+
+        counterEl.innerHTML = defaultText.replace(textIdentifier, counter.value--)
+    }
+
     initialize() {
         console.log('Initilized')
 
@@ -37,5 +44,13 @@ class CounterComponent {
         // counter.value = 100
         // counter.value = 90
         // counter.value = 80
+
+        const args = {
+            counterEl,
+            counter
+        }
+
+        const fn = this.updateText(args)
+        const intervalId = setInterval(fn, INTERVAL_TIME)
     }
 }
