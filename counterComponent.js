@@ -83,7 +83,12 @@ class CounterComponent {
         const fn = this.updateText(args)
         const intervalId = setInterval(fn, INTERVAL_TIME)
 
-        {            
+        {
+            const btnEl = document.getElementById(RESTART_BTN)
+
+            const disableBtn = this.prepareBtn(btnEl, this.initialize)
+            disableBtn()
+            
             const args = { counterEl, intervalId }
 
             const stopCounterFn = this.scheduleCounterStop.apply({ disableBtn }, [args])
