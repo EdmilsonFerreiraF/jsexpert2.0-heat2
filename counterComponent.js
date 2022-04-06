@@ -44,7 +44,23 @@ class CounterComponent {
 
             counterEl.innerHTML = ""
 
-            this.disableBtn()
+            this.disableBtn(false)
+        }
+    }
+
+    prepareBtn(btnEl, startFn) {
+        btnEl.addEventListener('click', startFn.bind(this))
+        
+        return (value = true) => {
+            const attribute = 'disabled'
+
+            if (value) {
+                btnEl.setAttribute(attribute, value)
+
+                return
+            }
+
+            btnEl.removeAttribute(attribute)
         }
     }
 
@@ -67,11 +83,9 @@ class CounterComponent {
         const fn = this.updateText(args)
         const intervalId = setInterval(fn, INTERVAL_TIME)
 
-        {
+        {            
             const args = { counterEl, intervalId }
 
-            const disableBtn = () => console.log('Disabled...')
-            
             const stopCounterFn = this.scheduleCounterStop.apply({ disableBtn }, [args])
             
             counter.stop = stopCounterFn
